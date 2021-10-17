@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   data: function() {
@@ -22,8 +23,19 @@ export default {
     }
   },
   methods: {
-    submitForm: function() {
-      console.log(this.username, this.password);
+    submitForm: async function() {
+      const url = 'https://jsonplaceholder.typicode.com/users';
+      const data = {
+        username: this.username,
+        password: this.password
+      }
+      try {
+        const result = await axios.post(url, data);
+        if(result.status === 201) alert("login!");
+      } catch(error) {
+        console.error(error);
+      }
+      
     }
   }
   
